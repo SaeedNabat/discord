@@ -1,8 +1,9 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
+import Login from './pages/login/Login';
+import Register from './pages/register/Register';
+import Dashboard from './pages/dashboard/Dashboard';
+import AlertNotification from './components/AlertNotification';
 function App() {
   return (
     <>
@@ -15,6 +16,7 @@ function App() {
           </Route>
         </Routes> 
       </Router>
+      <AlertNotification />
     </>
   );
 }

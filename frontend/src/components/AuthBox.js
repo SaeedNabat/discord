@@ -16,7 +16,7 @@ const AuthBox = ({ children }) => {
         <Box 
             sx={{
                 width: 700,
-                height: 400,
+                height: 430,
                 bgcolor: '#36393f',
                 borderRadius: '5px',
                 boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',

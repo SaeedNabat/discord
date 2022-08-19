@@ -2,6 +2,7 @@ const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
 // register user
 const register = async (req,res)=>{
+    console.log(req.body)
     try{
         const { username, password, mail } = req.body;
         
@@ -35,8 +36,10 @@ const register = async (req,res)=>{
 
 // login user 
 const login = async (req,res)=>{
+    console.log('salam')
     try{
         const { mail, password } = req.body;
+        console.log(req.body);
         const user = await User.findOne({
             mail: mail.toLowerCase()
         });
