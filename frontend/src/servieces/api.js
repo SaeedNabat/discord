@@ -41,6 +41,18 @@ export const register = async (data)=>{
 
 // private routes
 
+export const sendPeopleInvitation = async (data) => {
+    try {
+        return http.post('/people-invitation/invite', data);
+    } catch (exception) {
+        checkResponseCode(exception);
+        return {
+            error: true,
+            exception
+        }
+    }
+}
+
 const checkResponseCode = (exception) => {
     const responseCode = exception?.response?.status;
     if(responseCode) 

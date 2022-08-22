@@ -10,6 +10,7 @@ const loginSchema = Joi.object({
     mail:Joi.string().required().email()
 })
 
+
 module.exports = {
     registerSchema,
     loginSchema

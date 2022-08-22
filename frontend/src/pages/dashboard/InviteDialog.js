@@ -8,11 +8,15 @@ import  Typography  from '@mui/material/Typography'
 import { validateMail } from '../../utils/validators'
 import FormField from '../../components/FormField'
 import PrimatyButton from '../../components/PrimatyButton'
-const InviteDialog = ({ isDialogOpen, closeDialogHandler, sendInvitation }) => {
+import { connect } from 'react-redux'
+import { getActions } from '../../actions/peopleActions'
+const InviteDialog = ({ isDialogOpen, closeDialogHandler, sendPeopleInvitation }) => {
     const [mail, setMail] = useState('');
     const [isFormValid, setIsFormValid] = useState('');
     const handleSendInvitation = () => {
-        // send friend request to server
+        sendPeopleInvitation({
+            targetMailAddress: mail
+        },handleCloseDialog)
     }
     const handleCloseDialog = () => {
         closeDialogHandler();
@@ -55,4 +59,9 @@ const InviteDialog = ({ isDialogOpen, closeDialogHandler, sendInvitation }) => {
   )
 }
 
-export default InviteDialog
+const mapActionsToProps = (dispatch) => {
+    return {
+        ...getActions(dispatch)
+    }
+}
+export default connect(null, mapActionsToProps)(InviteDialog)

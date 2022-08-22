@@ -7,6 +7,7 @@ import PeopleSideBar from './PeopleSideBar'
 import { logout } from '../../utils/auth'
 import { connect } from 'react-redux'
 import { getActions } from '../../actions/authActions'
+import { connectWithSocketServer } from '../../realtimeCommunication/socketConnection'
 const Wrapper = styled('div')({
   width: '100%',
   height: '100vh',
@@ -20,6 +21,8 @@ const Dashboard = ({ setUserDetails }) => {
       logout()
     }else{
       setUserDetails(JSON.parse(user))
+      connectWithSocketServer(JSON.parse(user));
+
     }
   })
   return (

@@ -24,14 +24,5 @@ userSchema.pre("save", async function(next) {
 userSchema.methods.comparePassword = async function(password) {
     return bcrypt.compare(password, this.password);
 };
-userSchema.methods.generateToken = async ()=>{
-    const token = jwt.sign({
-        id:this._id,
-        mail:this.mail
-    },process.env.JWT_KEY,
-    {
-        expiresIn:'24h'
-    });
-    return token;
-}
-module.exports = mongoose.model('user',userSchema);
+
+module.exports = mongoose.model('User',userSchema);

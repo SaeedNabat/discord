@@ -1,5 +1,5 @@
 const User = require('../../models/user');
-const jwt = require('jsonwebtoken');
+const { generateToken } = require('../../utils/token')
 // register user
 const register = async (req,res)=>{
     console.log(req.body)
@@ -19,7 +19,7 @@ const register = async (req,res)=>{
             mail: mail.toLowerCase(),
         })
 
-        const token = await user.generateToken();
+        const token =  generateToken(user);
         res.status(201).json({
             user:{
                 id:user._id,
@@ -44,7 +44,8 @@ const login = async (req,res)=>{
             mail: mail.toLowerCase()
         });
         if(user && await user.comparePassword(password)){
-            const token = await user.generateToken();
+            const token = generateToken(user)
+
             return res.status(200).json({
                 user:{
                     id:user._id,

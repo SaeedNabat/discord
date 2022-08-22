@@ -3,10 +3,12 @@ const http = require('http');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+const socketServer = require('./socketServer')
 const PORT = process.env.PORT || process.env.API_PORT;
 
 const server = http.createServer(app);
 
+socketServer.registerSocketServer(server)
 // connect to database
 mongoose.connect(process.env.MONGO_URI).then(()=>{
     server.listen(PORT,()=>{
