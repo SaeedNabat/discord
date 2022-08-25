@@ -1,5 +1,5 @@
 const serverStore = require('../serverStore');
-
+const peopleUpdate = require('../socketHandlers/updates/people')
 
 const newConnectionHandler = async (socket, io) => {
     const userDetails = socket.user;
@@ -8,6 +8,9 @@ const newConnectionHandler = async (socket, io) => {
         socketId: socket.id,
         userId: userDetails.id
     })
+
+    // update pending people invitation list
+    peopleUpdate.updatePeoplePendingInvitations(userDetails.id);
 }
 
 module.exports = newConnectionHandler;

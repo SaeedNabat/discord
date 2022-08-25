@@ -9,7 +9,16 @@ export const peopleActions = {
 
 export const getActions = (dispatch) => {
     return {
-        sendPeopleInvitation: (data, closeDialogHandler) => dispatch(sendPeopleInvitation(data,closeDialogHandler))
+        sendPeopleInvitation: (data, closeDialogHandler) => dispatch(sendPeopleInvitation(data,closeDialogHandler)),
+        acceptPeopleInvitation: (data) => dispatch(acceptPeopleInvitation(data)),
+        rejectPeopleInvitation: (data) => dispatch(rejectPeopleInvitation(data))
+    }
+}
+export const setPendingPeopleInvitations = (pendingPeopleInvitations) => {
+    console.log(`pending invitation is handling`)
+    return {
+        type: peopleActions.SET_PENDING_INVITATION,
+        pendingPeopleInvitations
     }
 }
 const sendPeopleInvitation = (data, closeDialogHandler) => {
@@ -23,3 +32,26 @@ const sendPeopleInvitation = (data, closeDialogHandler) => {
         }
     }
 } 
+
+const acceptPeopleInvitation = (data) => {
+    return async (dispatch) => {
+        const response = await api.acceptPeopleInvitation(data)
+        if(response.error){
+            dispatch(openAlertMessage(response.exception?.response?.data))
+        }else {
+            dispatch(openAlertMessage("Invitation accepted!"));
+        }
+    }
+
+}
+
+const rejectPeopleInvitation = (data) => {
+    return async (dispatch) => {
+        const response = await api.rejectPeopleInvitation(data)
+        if(response.error){
+            dispatch(openAlertMessage(response.exception?.response?.data))
+        }else {
+            dispatch(openAlertMessage("Invitation rejected!"));
+        }
+    }
+}

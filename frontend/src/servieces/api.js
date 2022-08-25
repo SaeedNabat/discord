@@ -53,6 +53,31 @@ export const sendPeopleInvitation = async (data) => {
     }
 }
 
+export const acceptPeopleInvitation = async (data) => {
+    try {
+        return await http.post('/people-invitation/accept',data)
+    } catch (exception) {
+        checkResponseCode(exception)
+        return {
+            error: true,
+            exception 
+        }
+    }
+}
+
+
+export const rejectPeopleInvitation = async (data) => {
+    try {
+        return await http.post('/people-invitation/reject',data)
+    } catch (exception) {
+        checkResponseCode(exception)
+        return {
+            error: true,
+            exception 
+        }
+    }
+}
+
 const checkResponseCode = (exception) => {
     const responseCode = exception?.response?.status;
     if(responseCode) 

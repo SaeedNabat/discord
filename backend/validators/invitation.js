@@ -3,5 +3,10 @@ const invitationSchema = Joi.object({
     targetMailAddress: Joi.string().email()
 })
 
-
-exports.invitationSchema = invitationSchema;
+const inviteDecisionSchema = Joi.object({
+    id: Joi.string().required()
+})
+module.exports = {
+    invitationSchema,
+    inviteDecisionSchema
+}

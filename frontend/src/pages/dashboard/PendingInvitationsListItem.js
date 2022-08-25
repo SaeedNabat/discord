@@ -3,13 +3,18 @@ import Avatar from '../../components/Avatar';
 import React,{useState}from 'react'
 import Box from '@mui/system/Box';
 import InvitationDecisionButtons from './InvitationDecisionButtons';
+import {connect} from 'react-redux'
+import {getActions} from '../../actions/peopleActions'
+
 const PendingInvitationsListItem = ({ id, username, mail, acceptInvitation = () => {}, rejectInvitation = () => {} }) => {
     const [buttonsDisabled, setButtonsDisabled] = useState(false)
     const handleAcceptInvitation = () => {
+        console.log(id);
         acceptInvitation({ id });
         setButtonsDisabled(true);
     }
     const handleRejectInvitation = () => {
+        console.log(id )
         rejectInvitation({ id });
         setButtonsDisabled(true);
     }
@@ -41,5 +46,10 @@ const PendingInvitationsListItem = ({ id, username, mail, acceptInvitation = () 
     </Tooltip>
   )
 }
+const mapActionsToProps = (dispatch) => {
+    return {
+        ...getActions(dispatch)
+    }
+}
 
-export default PendingInvitationsListItem
+export default connect(null, mapActionsToProps)(PendingInvitationsListItem)
