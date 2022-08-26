@@ -21,6 +21,19 @@ export const setPendingPeopleInvitations = (pendingPeopleInvitations) => {
         pendingPeopleInvitations
     }
 }
+export const setPeople = (people) => {
+    return {
+        type: peopleActions.SET_PEOPLE,
+        people
+    }
+}
+
+export const setOnlineUsers = (onlineUsers) => {
+    return {
+        type: peopleActions.SET_ONLINE_USERS,
+        onlineUsers
+    }
+}
 const sendPeopleInvitation = (data, closeDialogHandler) => {
     return async (dispatch) => {
         const response = await api.sendPeopleInvitation(data);
@@ -49,7 +62,8 @@ const rejectPeopleInvitation = (data) => {
     return async (dispatch) => {
         const response = await api.rejectPeopleInvitation(data)
         if(response.error){
-            dispatch(openAlertMessage(response.exception?.response?.data))
+            // dispatch(openAlertMessage(response.exception?.response?.data))
+            dispatch(openAlertMessage('whats happend?'))
         }else {
             dispatch(openAlertMessage("Invitation rejected!"));
         }

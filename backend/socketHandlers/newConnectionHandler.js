@@ -11,6 +11,9 @@ const newConnectionHandler = async (socket, io) => {
 
     // update pending people invitation list
     peopleUpdate.updatePeoplePendingInvitations(userDetails.id);
+
+    // update people list
+    peopleUpdate.updatePeople(userDetails.id)
 }
 
 module.exports = newConnectionHandler;

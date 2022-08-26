@@ -6,16 +6,16 @@ import InvitationDecisionButtons from './InvitationDecisionButtons';
 import {connect} from 'react-redux'
 import {getActions} from '../../actions/peopleActions'
 
-const PendingInvitationsListItem = ({ id, username, mail, acceptInvitation = () => {}, rejectInvitation = () => {} }) => {
+const PendingInvitationsListItem = ({ id, username, mail, acceptPeopleInvitation = () => {}, rejectPeopleInvitation = () => {} }) => {
     const [buttonsDisabled, setButtonsDisabled] = useState(false)
     const handleAcceptInvitation = () => {
         console.log(id);
-        acceptInvitation({ id });
+        acceptPeopleInvitation({ socketId: id });
         setButtonsDisabled(true);
     }
     const handleRejectInvitation = () => {
         console.log(id )
-        rejectInvitation({ id });
+        rejectPeopleInvitation({ socketId: id });
         setButtonsDisabled(true);
     }
   return (

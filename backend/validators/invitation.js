@@ -4,7 +4,7 @@ const invitationSchema = Joi.object({
 })
 
 const inviteDecisionSchema = Joi.object({
-    id: Joi.string().required()
+    socketId: Joi.string().required()
 })
 module.exports = {
     invitationSchema,

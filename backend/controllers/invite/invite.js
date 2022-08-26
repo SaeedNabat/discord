@@ -56,8 +56,46 @@ const postInvitation = async (req, res) => {
     })
 }
 
-const acceptInvitation = (req,res) => {
-    return res.send('accept handler')
+const acceptInvitation = async (req,res) => {
+   try {
+    const {socketId} = req.body;
+    const invitation = await Invitation.findById(socketId)
+    if(!invitation) {
+        return res.status(401).json({
+            error: 'Error occured. Please try again'
+        })
+    }
+    const { senderId, receiverId } = invitation;
+
+    // add friends to both users
+    const senderUser = await User.findById(senderId);
+    senderUser.friends = [...senderUser.friends, receiverId];
+
+    const receiverUser = await User.findById(receiverId);
+    receiverUser.friends = [...receiverUser.friends, senderId]
+
+    await senderUser.save();
+    await receiverUser.save();
+
+    // delete invitation
+    await Invitation.findByIdAndDelete(socketId);
+
+    // update list of the friends if the users are online
+    peopleUpdates.updatePeople(senderId.toString());
+    peopleUpdates.updatePeople(receiverId.toString());
+    // update list of friends pending invitations
+
+    peopleUpdates.updatePeoplePendingInvitations(receiverId.toString())
+
+    return res.status(200).json({
+        data: 'friend succesfully added'
+    })
+   } catch (error) {
+    console.log(error)
+    return res.status(500).json({
+        error: 'something went wrong. Please try again'
+    })
+   }
 }
 
 
@@ -65,10 +103,12 @@ const rejectInvitation = async (req,res) => {
     try {
         const { socketId } = req.body;
         const { id } = req.user;
+        
         // remove that invitation from person invitations collection
         const invitationExists = await Invitation.exists({
-            _id: user
+            _id: socketId
         })
+        console.log(`invitation is exist : ${invitationExists}`)
         if(invitationExists) { 
             await Invitation.findByIdAndDelete(socketId);
         }

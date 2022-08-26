@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-import { setPendingPeopleInvitations } from '../actions/peopleActions';
+import { setPendingPeopleInvitations , setPeople, setOnlineUsers } from '../actions/peopleActions';
 import store from '../store/store'
 
 
@@ -19,10 +19,17 @@ export const connectWithSocketServer = (user) => {
     socket.on('people-invitations',(data) => {
         const { pendingInvitations } = data;
 
-        console.log('people invitations event came')
-
-        console.log(`pending invitation ${JSON.stringify(pendingInvitations)}`); 
-
+      
         store.dispatch(setPendingPeopleInvitations(pendingInvitations))
+    })
+    socket.on('people-list', (data) => {
+        const { people } = data;
+        store.dispatch(setPeople(people))
+
+    })
+
+    socket.on('online-users', (data) => {
+        const {onlineUsers} = data;
+        store.dispatch(setOnlineUsers(onlineUsers))
     })
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { styled } from '@mui/system'
 import Person from './Person'
+import { connect } from 'react-redux'
 const DUMMY_FRIEND = [
     {
       id: 1,
@@ -20,11 +21,21 @@ const MainContainer = styled('div')({
     flexGrow: 1,
     width: '100%'
 })
-const People = () => {
+const checkOnlineUsers = (people = [], onlineUsers = []) => {
+  people.forEach(p => {
+    const isUserOnline = onlineUsers.find(user => user.id === p.id)
+    p.isOnline = isUserOnline ? true:false;
+  })
+  console.log(`online users  are ${JSON.stringify(people)}`)
+  return people;
+
+}
+const People = ({ people, onlineUsers }) => {
+  console.log(`online users  are ${onlineUsers}`)
   return (
     <MainContainer>
         {
-            DUMMY_FRIEND.map(f=> (
+            checkOnlineUsers(people,onlineUsers).map(f=> (
                 <Person
                 username={f.username}
                 id={f.id}
@@ -38,4 +49,11 @@ const People = () => {
   )
 }
 
-export default People
+const mapStoreStateToProps = ({
+  people
+}) => {
+  return {
+    ...people
+  }
+}
+export default connect(mapStoreStateToProps)(People)

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const validator = require('express-joi-validation').createValidator({});
-const {postInvitation, acceptInvitation} = require('../controllers/invite/invite') 
+const {postInvitation, acceptInvitation, rejectInvitation} = require('../controllers/invite/invite') 
 const {invitationSchema, inviteDecisionSchema} = require('../validators/invitation')
 const { isAuthenticated } = require('../middlewares/auth')
 router.route('/invite').post(isAuthenticated,validator.body(invitationSchema),
