@@ -3,9 +3,16 @@ import Button from '@mui/material/Button'
 import Avatar from '../../components/Avatar'
 import Typography from '@mui/material/Typography'
 import OnlineIndicator from './OnlineIndicator'
-const Person = ({ id, username, isOnline }) => {
+import { chatTypes, getActions } from '../../actions/chatActions';
+import { connect } from 'react-redux'
+const Person = ({ id, username, isOnline, setChosenChatDetails }) => {
+
+  const handleChooseActiveConversation = () => {
+    setChosenChatDetails({ id: id, name: username}, chatTypes.DIRECT)
+  }
   return (
     <Button 
+    onClick={handleChooseActiveConversation}
     style={{
         width: '100%',
         height: '42px',
@@ -34,5 +41,9 @@ const Person = ({ id, username, isOnline }) => {
     </Button>
   )
 }
-
-export default Person
+const mapActionsToProps = (dispatch) => {
+  return {
+    ...getActions(dispatch)
+  }
+}
+export default connect(null, mapActionsToProps)(Person)

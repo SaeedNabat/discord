@@ -23,15 +23,15 @@ const MainContainer = styled('div')({
 })
 const checkOnlineUsers = (people = [], onlineUsers = []) => {
   people.forEach(p => {
-    const isUserOnline = onlineUsers.find(user => user.id === p.id)
+    const isUserOnline = onlineUsers.find(user => user.userId === p.id)
     p.isOnline = isUserOnline ? true:false;
   })
-  console.log(`online users  are ${JSON.stringify(people)}`)
   return people;
 
 }
 const People = ({ people, onlineUsers }) => {
-  console.log(`online users  are ${onlineUsers}`)
+  console.log(`online users  are ${JSON.stringify(onlineUsers)}`)
+  console.log(`people users  are ${JSON.stringify(people)}`)
   return (
     <MainContainer>
         {

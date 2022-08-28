@@ -7,11 +7,12 @@ import thunk from 'redux-thunk';
 import authReducer from '../reducers/authReducer';
 import alertReducer from '../reducers/alertReducer'
 import peopleReducer from '../reducers/peopleReducer'
-
+import chatReducer from '../reducers/chatReducer'
 const rootReducer = combineReducers({
     auth: authReducer,
     alert: alertReducer,
-    people:peopleReducer
+    people:peopleReducer,
+    chat: chatReducer
 });
 
 const store = createStore(
