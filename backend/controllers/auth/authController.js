@@ -24,6 +24,7 @@ const register = async (req,res)=>{
             user:{
                 id:user._id,
                 mail:user.mail,
+                username:user.username,
                 token
             }
         })
@@ -50,6 +51,7 @@ const login = async (req,res)=>{
                 user:{
                     id:user._id,
                     mail:user.mail,
+                    username: user.username,
                     token
                 }
             })
