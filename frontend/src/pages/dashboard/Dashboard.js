@@ -8,12 +8,13 @@ import { logout } from '../../utils/auth'
 import { connect } from 'react-redux'
 import { getActions } from '../../actions/authActions'
 import { connectWithSocketServer } from '../../realtimeCommunication/socketConnection'
+import Room from './Room'
 const Wrapper = styled('div')({
   width: '100%',
   height: '100vh',
   display: 'flex'
 })
-const Dashboard = ({ setUserDetails }) => {
+const Dashboard = ({ setUserDetails, isUserInRoom }) => {
 
   useEffect(()=>{
     const user = localStorage.getItem('user')
@@ -31,13 +32,18 @@ const Dashboard = ({ setUserDetails }) => {
       <PeopleSideBar />  
       <Messenger />
       <AppBar />
+      {isUserInRoom && <Room />}
     </Wrapper>
   )
 }
-
+const mapStoreStateToProps = ({ room }) =>{
+  return {
+    ...room,
+  }
+}
 const mapActionsToProps = (dispatch) => {
   return {
     ...getActions(dispatch)
   }
 }
-export default connect(null, mapActionsToProps)(Dashboard)
+export default connect(mapStoreStateToProps, mapActionsToProps)(Dashboard)
